@@ -785,14 +785,6 @@ class PreviewPage(QWidget):
             # 刷新预览
             self.refresh()
 
-    def get_color(col):
-        """根据列值生成颜色映射"""
-        max_val, min_val = col.max(skipna=True), col.min(skipna=True)
-        norm = plt.Normalize(min_val, max_val)
-        camp = plt.cm.plasma
-        colors = camp(norm(col))
-        return colors
-
 class StatisticsPage(QWidget):
     """基础统计数据页面"""
 
@@ -1232,6 +1224,14 @@ class PlotPage(QWidget):
         if open_file(self, self.analyzer):
             self.refresh()
             self.file_opened.emit()
+
+    def get_color(self, col):
+        """根据列值生成颜色映射"""
+        max_val, min_val = col.max(skipna=True), col.min(skipna=True)
+        norm = plt.Normalize(min_val, max_val)
+        camp = plt.cm.plasma
+        colors = camp(norm(col))
+        return colors
 
 class AdvancePage(QWidget):
     """高级统计方法页面"""
